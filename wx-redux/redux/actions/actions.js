@@ -31,3 +31,21 @@ export function toggleTodo(index) {
 export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter }
 }
+
+/*
+ * 异步action
+ */
+
+export function fetchPosts(parmes) {
+  return function (dispatch) {
+    console.log("开始请求")
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(123)
+      }, 1000)
+    }).then(() => {
+      console.log("请求成功")
+      dispatch(toggleTodo())
+    })
+  }
+}

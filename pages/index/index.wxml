@@ -4,7 +4,8 @@
     <i-test></i-test>
     <view >{{todos}}</view>
     <view >{{visibilityFilter}}</view>
-    <button bindtap="onTodoClick">惦记我</button>
+    <button bindtap="onTodoClick">同步点击我</button>
+    <button bindtap="onAsyncTodoClick">异步点击我</button>
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>

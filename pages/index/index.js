@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp()
 import {PageConnect} from '../../wx-redux/connect/index.js'
-import {toggleTodo} from '../../wx-redux/redux/actions/actions'
+import {toggleTodo,fetchPosts} from '../../wx-redux/redux/actions/actions'
 import {getVisibleTodos} from '../../wx-redux/redux/reselect/reselect'
 Page(PageConnect({
   data: {
@@ -27,7 +27,11 @@ Page(PageConnect({
     return {
       onTodoClick: id => {
         dispatch(toggleTodo(5))
+      },
+      onAsyncTodoClick: id => {
+        dispatch(fetchPosts(5))
       }
+
     }
   },
   onLoad: function () {

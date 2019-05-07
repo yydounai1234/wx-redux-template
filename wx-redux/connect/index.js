@@ -1,5 +1,5 @@
 import { createStore,applyMiddleware } from '../src/index'
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from '../src/middleware/redux-thunk'
 import todoApp from '../redux/reducers/reducer'
 
 let store = createStore(todoApp,applyMiddleware(
