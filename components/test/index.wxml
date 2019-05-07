@@ -1,0 +1,1 @@
+<view>{{todos}}{{visibilityFilter}}</view>
