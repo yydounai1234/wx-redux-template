@@ -36,6 +36,7 @@ function PageConnect(page) {
         //监听state变化
         page.onLoad = function () {
             unSubscribe = store.subscribe(onStateChange.bind(this));
+            onStateChange.call(this)
             onLoad && onLoad.apply(this, arguments);
         }
 
@@ -68,6 +69,7 @@ function ComponentConnect(component) {
         //监听state变化
         component.attached = function () {
             unSubscribe = store.subscribe(onStateChange.bind(this));
+            onStateChange.call(this)
             attached && attached.apply(this, arguments);
         }
 

@@ -69,5 +69,8 @@ Page(PageConnect({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  goLog(){
+    wx.navigateTo("/pages/logs/logs")
   }
 }))

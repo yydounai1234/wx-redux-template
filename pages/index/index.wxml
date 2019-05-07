@@ -2,6 +2,7 @@
 <view class="container">
   <view class="userinfo">
     <i-test></i-test>
+    <i-test></i-test>
     <view >{{todos}}</view>
     <view >{{visibilityFilter}}</view>
     <button bindtap="onTodoClick">同步点击我</button>
@@ -12,7 +13,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
+  <view class="usermotto" bindtap="goLog">
     <text class="user-motto">{{motto}}</text>
   </view>
 </view>
