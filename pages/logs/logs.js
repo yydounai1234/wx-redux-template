@@ -1,7 +1,6 @@
 //logs.js
 import {PageConnect} from '../../wx-redux/connect/index.js'
 import {toggleTodo,fetchPosts} from '../../wx-redux/redux/actions/actions'
-import {getVisibleTodos} from '../../wx-redux/redux/reselect/reselect'
 const util = require('../../utils/util.js')
 
 Page(PageConnect({
@@ -11,7 +10,7 @@ Page(PageConnect({
   mapStateToProps(state){
     return {
       todos: state.todos,
-      visibilityFilter:getVisibleTodos(state)
+      visibilityFilter:state.todos
     }
   },
   mapDispatchToProps(dispatch){

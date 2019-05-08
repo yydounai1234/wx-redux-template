@@ -6,12 +6,13 @@ let store = createStore(todoApp,applyMiddleware(
     thunkMiddleware
   ))
 
+//redux数据变或者props变化，有diff则更新
 function onStateChange() {
     let that=this;
     let states=store.getState();
     //需要改变的数据
     let change={};
-    var data = that.mapStateToProps(states);
+    var data = that.mapStateToProps(states,(that.properties&&{...this.properties})||{});
 
     //未改变数据无需setData
     Object.keys(data).forEach((k) => {
@@ -21,6 +22,7 @@ function onStateChange() {
     });
     that.setData(change)
 }
+
 function PageConnect(page) {
     //绑定
     const onLoad = page.onLoad;
@@ -62,12 +64,23 @@ function ComponentConnect(component) {
         let unSubscribe = null;
         component={...component,...component.methods||{}}
 
-        //redux数据植入data
-        var data = component.mapStateToProps.call(component,store.getState());
-        component.data = { ...component.data || {}, ...data }
-
         //监听state变化
         component.attached = function () {
+
+            //每个组件获取单独的select
+            let creatMapStateProps = component.mapStateToProps.call(this);
+
+            //挂载mapStateToProps到this
+            this.mapStateToProps=creatMapStateProps
+
+            //初始化redux数据
+            let data=creatMapStateProps.call(this,store.getState(),this.properties);
+            this.setData(data)
+
+            //prop变化需要启用$apply()
+            this.$apply=onStateChange
+
+            //redux监听api
             unSubscribe = store.subscribe(onStateChange.bind(this));
             onStateChange.call(this)
             attached && attached.apply(this, arguments);
@@ -79,9 +92,7 @@ function ComponentConnect(component) {
             unSubscribe = null;
             detached && detached.apply(this, arguments);
         }
-
-        //将mapStateToProps传入methods
-        component.methods=Object.assign(component.methods||{},{mapStateToProps:component.mapStateToProps})
+        
     }
 
     if(component.mapDispatchToProps){

@@ -1,8 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
-    <i-test></i-test>
-    <i-test></i-test>
+    <button bindtap="changeNumberHandle">修改传入num</button>
+    <!-- <i-test></i-test> -->
+    <i-test num="{{num}}"></i-test>
     <view >{{todos}}</view>
     <view >{{visibilityFilter}}</view>
     <button bindtap="onTodoClick">同步点击我</button>

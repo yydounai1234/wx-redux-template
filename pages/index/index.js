@@ -3,13 +3,13 @@
 const app = getApp()
 import {PageConnect} from '../../wx-redux/connect/index.js'
 import {toggleTodo,fetchPosts} from '../../wx-redux/redux/actions/actions'
-import {getVisibleTodos} from '../../wx-redux/redux/reselect/reselect'
 Page(PageConnect({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    num:2
   },
   //事件处理函数
   bindViewTap: function() {
@@ -20,7 +20,7 @@ Page(PageConnect({
   mapStateToProps(state){
     return {
       todos: state.todos,
-      visibilityFilter:getVisibleTodos(state)
+      visibilityFilter:state.visibilityFilter
     }
   },
   mapDispatchToProps(dispatch){
@@ -63,7 +63,6 @@ Page(PageConnect({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -72,5 +71,10 @@ Page(PageConnect({
   },
   goLog(){
     wx.navigateTo("/pages/logs/logs")
+  },
+  changeNumberHandle(){
+    this.setData({
+      num:5
+    })
   }
 }))

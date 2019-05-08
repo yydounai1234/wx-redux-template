@@ -1,18 +1,29 @@
 import {ComponentConnect} from '../../wx-redux/connect/index.js'
-import {getVisibleTodos} from '../../wx-redux/redux/reselect/reselect'
+import {makeGetVisibleTodos} from '../../wx-redux/redux/reselect/reselect'
 Component(ComponentConnect({
     data:{
         a:123
     },
-    mapStateToProps(state){
-        return {
-          todos: state.todos,
-          visibilityFilter:getVisibleTodos(state)
+    properties:{
+        num:{
+            type:Number,
+            value:10,
+            observer(){
+                this.$apply&&this.$apply()
+            }
+        }
+    },
+    mapStateToProps(){
+        this.getVisibleTodos = makeGetVisibleTodos()
+        return (state,props)=>{
+            return{
+                todos: state.todos,
+                visibilityFilter:this.getVisibleTodos(state,props)
+            }
         }
     },
     methods:{
         change(value){
-            console.log(value)
             return value
         }
     }

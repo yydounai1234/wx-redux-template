@@ -24,6 +24,7 @@ function defaultEqualityCheck(a, b) {
     // we reference arguments instead of spreading them for performance reasons
     return function () {
       if (!areArgumentsShallowlyEqual(equalityCheck, lastArgs, arguments)) {
+        
         // apply arguments instead of spreading for performance.
         lastResult = func.apply(null, arguments)
       }
@@ -73,7 +74,7 @@ function defaultEqualityCheck(a, b) {
           // apply arguments instead of spreading and mutate a local list of params for performance.
           params.push(dependencies[i].apply(null, arguments))
         }
-  
+
         // apply arguments instead of spreading for performance.
         return memoizedResultFunc.apply(null, params)
       })
